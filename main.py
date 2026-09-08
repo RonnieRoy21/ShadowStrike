@@ -1,6 +1,5 @@
 from fastmcp import FastMCP
 from server import DigiFarm
-from fastapi import FastAPI
 
 mcp=FastMCP("ShadowStrike")
 
