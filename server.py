@@ -31,17 +31,25 @@ class DigiFarm:
 
 
 
-    def makePostRequest(self,endpoint:str,data):
+    def makePostRequest(self, endpoint: str, data):
         try:
-            return requests.post(endpoint,data=data,headers={"Content-Type":"application/json"}).json()
-        except Exception as e:
-            return e.args
+            response = requests.post(endpoint, json=data, timeout=10)  # json= not data=
+            response.raise_for_status()  # raise on 4xx/5xx instead of silently continuing
+            return response.json()
+        except requests.exceptions.RequestException as e:
+            # log this properly, not jst return args
+            raise RuntimeError(f"POST to {endpoint} failed: {e}") from e
 
-    def makeGetRequest(self,endpoint:str):
+    
+    def makeGetRequest(self, endpoint: str):
         try:
-            return requests.get(endpoint,headers={"Content-Type":"application/json"}).json()
-        except Exception as e:
-            return e.args
+            response = requests.get(endpoint, timeout=10)
+            response.raise_for_status()
+            return response.json()
+        except requests.exceptions.RequestException as e:
+            raise RuntimeError(f"GET to {endpoint} failed: {e}") from e
+
+    
 
     def makeDatabaseRequest(self,tableName:str,method:str,selects:str="*",filterCol:str=None,filterVal:int | str | float =None,updateJson:str=None):
         try:
