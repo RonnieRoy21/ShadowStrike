@@ -22,10 +22,10 @@ class ExpenseRequest(BaseModel):
 
 class Flock(BaseModel):
     id: Optional[int] = None
-    batch_code:date=uuid4().hex
+    batch_code:str=uuid4().hex
     breed:str
     purpose:str
-    start_date:str=date.today()
+    start_date:date=date.today()
     initial_count:int
     current_count:int
     status:str
@@ -84,7 +84,7 @@ class InventoryTransaction(BaseModel):
     id: Optional[int]=None
     item_id: int
     quantity: int
-    transaction_date: str=date.today()
+    transaction_date: date=date.today()
     reference_note: str
     transaction_type: str
 
