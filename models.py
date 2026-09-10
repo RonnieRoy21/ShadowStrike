@@ -22,7 +22,7 @@ class ExpenseRequest(BaseModel):
 
 class Flock(BaseModel):
     id: Optional[int] = None
-    batch_code:str=uuid4().hex
+    batch_code:date=uuid4().hex
     breed:str
     purpose:str
     start_date:str=date.today()
@@ -30,7 +30,7 @@ class Flock(BaseModel):
     current_count:int
     status:str
     created_by:str
-    created_at:str=date.today()
+    created_at:date=date.today()
 
 class EggProductionLogs(BaseModel):
     id:Optional[int]=None
@@ -40,7 +40,7 @@ class EggProductionLogs(BaseModel):
     eggs_broken:int
     notes:str
     recorded_by:str
-    created_at:str=date.today()
+    created_at:date=date.today()
 
 class WeightLog(BaseModel):
     id :Optional[int]=None
@@ -48,7 +48,7 @@ class WeightLog(BaseModel):
     sample_size:int
     total_weight_kg:int
     avg_weight_kg:float
-    log_date:str=date.today()
+    log_date:date=date.today()
     recorded_by:str
 
 class FeedLog(BaseModel):
@@ -58,7 +58,7 @@ class FeedLog(BaseModel):
     quantity_kg:int
     cost:int
     recorded_by:str
-    log_date:str=date.today()
+    log_date:date=date.today()
 
 class HealthLog(BaseModel):
     id:Optional[int]=None
@@ -68,13 +68,13 @@ class HealthLog(BaseModel):
     medication_name:str
     dosage:str
     notes:str
-    event_date:str=date.today()
+    event_date:date=date.today()
 
 class MortalityLog(BaseModel):
     id: Optional[int]=None
     flock_id: int
     deaths_count: int
-    log_date: str=date.today()
+    log_date: date=date.today()
     cause: str
     notes: str
     recorded_by: str
@@ -95,7 +95,7 @@ class InventoryItem(BaseModel):
     item_name: str
     category: str
     unit: str="kg"
-    last_updated: str=date.today()
+    last_updated: date=date.today()
 
 
 class User(BaseModel):
@@ -103,7 +103,7 @@ class User(BaseModel):
     name: str
     email: str
     role: str
-    created_at: str=date.today()
+    created_at: date=date.today()
 
 
 class Sale(BaseModel):
@@ -118,4 +118,4 @@ class Sale(BaseModel):
     buyer_contact: str
     payment_status: str
     recorded_by: str
-    sale_date: str=date.today()
+    sale_date: date=date.today()
