@@ -32,7 +32,7 @@ class DigiFarm:
 
     def makePostRequest(self, endpoint: str, data):
         try:
-            response = requests.post(endpoint, data=data, timeout=10)  # json= not data=
+            response = requests.post(endpoint, data=data,headers={"Content-Type": "application/json"}, timeout=10)  # json= not data=
             response.raise_for_status()  # raise on 4xx/5xx instead of silently continuing
             return response.json()
         except requests.exceptions.RequestException as e:
