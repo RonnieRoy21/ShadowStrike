@@ -32,7 +32,7 @@ class DigiFarm:
     def makePostRequest(self, endpoint: str, data) -> ResponseModel:
         try:
             response = requests.post(
-                endpoint, data=data, headers={"Content-Type": "application/json"}, timeout=10
+                endpoint, data=data, headers={"Content-Type": "application/json"}, 
             )
             response.raise_for_status()
             return ResponseModel(**response.json())
@@ -41,7 +41,7 @@ class DigiFarm:
 
     def makeGetRequest(self, endpoint: str) -> ResponseModel:
         try:
-            response = requests.get(endpoint, timeout=10)
+            response = requests.get(endpoint, )
             response.raise_for_status()
             return ResponseModel(**response.json())
         except requests.exceptions.RequestException as e:
