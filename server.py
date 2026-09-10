@@ -47,6 +47,14 @@ class DigiFarm:
         except requests.exceptions.RequestException as e:
             return ResponseModel(status="error", single=None, body=None, error=str(e))
 
+    def makeDeleteRequest(self, endpoint: str) -> ResponseModel:
+        try:
+            response = requests.delete(endpoint,)
+            response.raise_for_status()
+            return ResponseModel(**response.json())
+        except requests.exceptions.RequestException as e:
+            return ResponseModel(status="error", single=None, body=None, error=str(e))
+        
     def makeDatabaseRequest(
         self,
         tableName: str,
@@ -86,6 +94,10 @@ class DigiFarm:
 
     def getFlocks(self) -> ResponseModel:
         return self.makeGetRequest(endpoint=f"{self.digifarm_server_url}/flock/getAllLogs")
+    def getFlockFCR(self, flock_id: int = None) -> ResponseModel:
+        if flock_id:
+            return self.makeDatabaseRequest(tableName="flock_fcr", method="select", filterCol="flock_id", filterVal=flock_id)
+        return self.makeDatabaseRequest(tableName="flock_fcr", method="select")
 
     def getEggProductionLogs(self) -> ResponseModel:
         return self.makeGetRequest(endpoint=f"{self.digifarm_server_url}/eggs/getLogs")
@@ -183,4 +195,13 @@ class DigiFarm:
         return self.makePostRequest(
             endpoint=f"{self.digifarm_server_url}/flock/addLog",
             data=flock.model_dump_json(exclude_none=True),
+        )
+    def deleteWeightLog(self, id: int) -> ResponseModel:
+        return self.makeDeleteRequest(
+            endpoint=f"{self.digifarm_server_url}/weight/deleteLogById/{id}"
+        )
+
+    def deleteAllWeightLogs(self) -> ResponseModel:
+        return self.makeDeleteRequest(
+            endpoint=f"{self.digifarm_server_url}/weight/deleteAllLogs"
         )

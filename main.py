@@ -12,7 +12,7 @@ mcp_app=mcp.http_app(
 digitools=DigiFarm()
 
 mcp.tool(digitools.getFlocks,description="gets the flock data from digifarm database")
-# mcp.tool(digitools.getFlockFCR,description="gets the feed convertion ratio for the flock")
+mcp.tool(digitools.getFlockFCR,description="gets the feed convertion ratio for the flock")
 mcp.tool(digitools.getEggProductionLogs,description="Gets the egg production details")
 mcp.tool(digitools.getHealthLogs,description="Gets the health logs")
 mcp.tool(digitools.getFeedLogs,description="Gets the feed logs")
@@ -34,4 +34,6 @@ mcp.tool(digitools.addSalesLog,description="Add a sales log")
 mcp.tool(digitools.addUser,description="Add a user")
 mcp.tool(digitools.getExpenses,description="Retrieves the expense logs from database")
 mcp.tool(digitools.addNewFlock,description="allows registering a new batch of poultry")
+mcp.tool(digitools.deleteWeightLog, description="Delete a weight log by id")
+mcp.tool(digitools.deleteAllWeightLogs, description="Delete all weight logs")
 
