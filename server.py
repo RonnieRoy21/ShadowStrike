@@ -25,7 +25,6 @@ class DigiFarm:
 
         self.supabase:Client=create_client(supabase_key=os.getenv("digifarm_secret"),supabase_url=os.getenv("digifarm_url"))
         self.digifarm_server_url=os.getenv("digifarm_server_url")
-        print(self.digifarm_server_url)
 
 
 
@@ -33,7 +32,7 @@ class DigiFarm:
 
     def makePostRequest(self, endpoint: str, data):
         try:
-            response = requests.post(endpoint, json=data, timeout=10)  # json= not data=
+            response = requests.post(endpoint, data=data, timeout=10)  # json= not data=
             response.raise_for_status()  # raise on 4xx/5xx instead of silently continuing
             return response.json()
         except requests.exceptions.RequestException as e:
